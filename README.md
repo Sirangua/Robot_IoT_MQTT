@@ -41,4 +41,5 @@ https://docs.microsoft.com/en-us/azure/virtual-machines/linux/ssh-from-windows
 
 ### Montar broker EMQX
 1- https://www.youtube.com/watch?v=42ksFrj1CyQ
+
 2- https://www.youtube.com/watch?v=e8uU3LyI_n8
