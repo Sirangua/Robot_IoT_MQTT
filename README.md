@@ -8,7 +8,12 @@ Un robot que creado en una ESP32 y que se controla a distancia mediante una web 
 - Controlador de motores L298N
 - 2 Motorreductores
 - 2 Llantas
+- Alimentación para la ESP32 y motores
+- Una base para montarlo
 
+## Conexiones 
+
+![Robot_IoT_bb](https://user-images.githubusercontent.com/72269114/143927146-ac148fac-307d-43cb-b1c9-299b1092bbc3.png)
 
 https://github.com/emqx/emqx
 
