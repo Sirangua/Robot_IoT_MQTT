@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<! –– ///// HTML ///// ––>
+<html lang="en" dir="ltr">
+
+    <! –– ///// TITLE ///// ––> 
+    <head>
+        <meta charset="utf-8">
+        <title>MQTT Robot 🎮</title>
+    </head>
+
+    <! –– ///// BODY ///// ––> 
+    <body>
+
+        <! –– ///// PAGE CONTENT ///// ––>
+        <h1> 🎮 Conduce el Robot IoT 🎮</h1>
+        <div id = "instructions">Instrucciones:</div> 
+        <div id = "instructions">Usa las siguientes teclas para moverte: 8⬆ | 2⬇ | 4⬅ | 6➡</div>
+        <div id = "instructions">🛑Presina UNA SOLA VEZ o voy a acelerar hasta morir🛑</div>
+        <div id = "instructions">Usa los botones para conocer la distancia que hay en esa dirección</div>  
+
+        <div id = "Divisor">================================================</div><br><br>
+
+        <div id = "set_angulo">Elige la dirección del sensor:</div>
+        <button onclick = "command(0)" type = "button">Izquierda</button> 
+        <button onclick = "command(1)" type = "button">45° Izquierda</button> 
+        <button onclick = "command(2)" type = "button">Frente</button> 
+        <button onclick = "command(3)" type = "button">45° Drecha</button> 
+        <button onclick = "command(4)" type = "button">Derecha</button> <br><br>
+        <div id = "distance">La distancia es: </div><br><br>
+
+        <div id = "Divisor">================================================</div><br>
+
+        <div id = "status">🔴 Desconectado</div> 
+        <div id = "display">Conexión con ESP32</div> 
+        <div id = "display">Hecho por: @emma.sirangua</div> 
+
+
+        <! –– ///// LIBRARIES ///// ––>
+        <script src = "https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+        <! –– ///// SCRIPT TO SEND MESSAGES ///// ––>
+        <script type = "text/javascript">
+
+            ////////////////////  To Move ////////////////////
+            document.addEventListener("keypress", function onEvent(event) {
+                if(event.key == 8){
+                    client.publish("Inputs","straight")
+                }
+                if(event.key == 2){
+                    client.publish("Inputs","back")
+                }
+                if(event.key == 4){
+                    client.publish("Inputs","left")
+                }
+                if(event.key == 6){
+                    client.publish("Inputs","right")
+                }
+            });
+
+            //////////////////// Key Up to Stop ////////////////////
+            document.addEventListener("keyup", function onEvent(event) {
+                console.log("Key Up" + event.key)
+                client.publish("Inputs","stop")
+            });
+
+            ////////////////////  Buttons ////////////////////
+            function command(value){
+                client.publish ('servo', value.toString(), (error) =>{
+                    console.log (error || 'Envio correcto')
+                });
+            }
+        </script>
+
+
+        <! –– ///// SCRIPT TO MQTT ///// ––>
+        <script type="text/javascript">
+
+            ////////////////////  Conection details ////////////////////
+            const options = {
+                connectTimeout: 4000,
+                clientId: 'Control_IoT',
+                keepalive: 60,
+                clean: true,    
+                username: 'Web_control',
+                password: '9c054m7tc98',
+            }
+
+
+            ////////////////////  MQTT Conection ////////////////////
+            const WebSocket_URL = 'ws://IP:PORT/mqtt'                           // Add Your Own Information
+            const client = mqtt.connect (WebSocket_URL, options);
+            $("#status").html("🟡 Intentando conexión con EMQX <br>");
+
+
+            ////////////////////  MQTT Conected ////////////////////
+            client.on ('connect', () => {
+            console.log ('MQTT conectado por WebSocket')
+            $("#status").html("🟢 Conectado via MQTT")
+
+                
+            ////////////////////  Subscritions ////////////////////
+            client.subscribe ('Outputs', {qos: 0 }, (error) => {
+                if (!error){
+                    console.log ('Suscripción realizada')
+                } else {
+                    console.log ('Error en la suscripción')
+                }
+            })
+            client.subscribe ('Board', {qos: 0 }, (error) => {
+                if (!error){
+                    console.log ('Suscripción realizada')
+                } else {
+                    console.log ('Error en la suscripción')
+                }
+                })
+            })
+
+
+            ////////////////////  Recieve Messages ////////////////////
+            //Conected to board
+            client.on('message', (topic, message) => {
+                if (topic == 'Board'){
+                    $("#display").html(message.toString() + "<br>");
+                } 
+            })
+
+            // Distance
+            client.on('message', (topic, message) => {
+                if (topic == 'Outputs'){
+                    $("#distance").html("La distancia es: "+ message.toString() + " centimetros <br>");
+                } 
+            })
+
+
+            ////////////////////  Reconnect ////////////////////
+            client.on('reconnect', (error) => {
+                console.log('reconnecting:', error);
+                $("#status").html("🔵 Reconectando... <br>");
+            })
+
+
+            ////////////////////  Error ////////////////////
+            client.on('error', (error) => {
+                console.log('Connect Error:', error);
+                $("#status").html("🔴 Error en la conexión <br>");
+            })
+
+        </script>
+    </body>
+</html>
