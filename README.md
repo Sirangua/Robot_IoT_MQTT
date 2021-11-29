@@ -33,8 +33,12 @@ https://github.com/emqx/emqx
 ### Montar máquinas virtuales en Azure
 https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal
 
-### Abrir los puertos de Azure
+### Abrir los puertos de la máquina virtual
 https://docs.microsoft.com/en-us/azure/virtual-machines/windows/nsg-quickstart-powershell
 
 ### Conectarse mediante SSH
 https://docs.microsoft.com/en-us/azure/virtual-machines/linux/ssh-from-windows
+
+### Montar broker EMQX
+1- https://www.youtube.com/watch?v=42ksFrj1CyQ
+2- https://www.youtube.com/watch?v=e8uU3LyI_n8
