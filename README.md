@@ -38,4 +38,3 @@ https://docs.microsoft.com/en-us/azure/virtual-machines/windows/nsg-quickstart-p
 
 ### Conectarse mediante SSH
 https://docs.microsoft.com/en-us/azure/virtual-machines/linux/ssh-from-windows
-
