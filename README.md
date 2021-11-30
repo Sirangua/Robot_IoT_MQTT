@@ -19,7 +19,7 @@ Un robot que creado en una ESP32 y que se controla a distancia mediante una web 
 
 ## Broker MQTT
 Para el Broker MQTT se usó EMQX un broker open source. Este broker se montó en un máquina virtual de Azure, sin embargo EMQX puede ser montado en un entorno local o en Docker. Es el ejemplo de Azure se siguieron los siguientes pasos
-- Montar la máquyina virtual con Linux en Azure
+- Montar la máquina virtual con Linux en Azure
 - Abrir los puertos necesarios del Firewall de Azure
 - Nos conectamos a la maquina usando SSH en PowerShell
 - Abrimos los puertos necesarios del Firewall de la Máquina Virtual
@@ -43,3 +43,6 @@ https://docs.microsoft.com/en-us/azure/virtual-machines/linux/ssh-from-windows
 1- https://www.youtube.com/watch?v=42ksFrj1CyQ
 
 2- https://www.youtube.com/watch?v=e8uU3LyI_n8
+
+## Video de demostración
+https://www.youtube.com/watch?v=fJriNY2mxi0
