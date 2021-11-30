@@ -35,13 +35,6 @@ const char* ssid = "Your Wifi SSID";                            // Add Your Own 
 // Servo
 #define pin_servo 27
 
-// Servo
-#define servo_max_ang   180
-#define servo_min_ang   0
-#define servo_speed     25
-#define servo_step      3
-
-
 
 ////////////////////  Global Variables ////////////////////
 // Servo
